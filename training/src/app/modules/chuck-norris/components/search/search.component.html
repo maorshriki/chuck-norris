@@ -1,0 +1,17 @@
+<form class="form-container">
+    <mat-form-field class="form-fields-container">
+        <div [formGroup]="searchForm">
+            <label for="searchKeyId"></label>
+            <input matInput
+                   class="form-control"
+                   id="searchKeyId"
+                   type="text"
+                   formControlName="searchKey"
+
+            >
+            <mat-error
+                    *ngIf="(searchKeyFormControl?.touched || searchKeyFormControl?.dirty) && searchKeyFormControl?.invalid">{{getErrorMessage()}}
+            </mat-error>
+        </div>
+    </mat-form-field>
+</form>

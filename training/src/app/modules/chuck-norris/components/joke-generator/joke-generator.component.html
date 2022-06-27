@@ -1,0 +1,42 @@
+<div *ngIf="isSearchMode; else randMode">
+    <div [ngClass]="{'search-style': isSearchMode}">
+        <div class="key-word-style">
+            <a>Key word(s)</a>
+            <app-search (generateJokesOnSearchMode)="onSearch($event)"
+                        (sendSearchKey)="this.searchKey = $event"
+                        (isSearchValid)="this.disable = $event"
+            ></app-search>
+        </div>
+        <button [ngClass]="{'disabled-style': this.disable}"
+                [disabled]="this.disable"
+                (click)="onSearch(this.searchKey)" class="btn-three-search" mat-flat-button>Go!
+        </button>
+    </div>
+</div>
+
+<ng-template #randMode>
+    <div class="random-container">
+        <div class="your-name-style">
+            <a>Your name</a>
+            <app-search></app-search>
+        </div>
+        <div class="category-style">
+            <a>Category</a>
+            <mat-select id="select-container-random">
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+            </mat-select>
+        </div>
+        <button (click)="this.generateJokeWasClicked.emit();" class="btn-three-random" mat-flat-button>Go!</button>
+    </div>
+</ng-template>
+
+<div *ngIf="joke">
+    <app-joke *ngIf="!isSearchMode" [joke]="joke" [isSearchMode]="!isSearchMode"></app-joke>
+</div>
+
+<div *ngIf="jokes?.length && isSearchMode">
+    <app-joke-list [jokes]="jokes"></app-joke-list>
+</div>
+
